@@ -1,17 +1,37 @@
+import { useRouter } from "next/router";
+import Image from "next/image";
 
+export default function ProductsPage({items}){
 
-export default function ProductsPage({users}){
-    console.log(users);
+    const router = useRouter();
+    const goToDetail = (itemId) =>{
+        router.push(`/products.${itemId}`);
+    }
+
+    console.log(items);
+
     return(
         <>
         <div>
             <h1 className="align-middle">This is the products</h1>
             <div>
                 <ul>
-                    {users.map((user)=>{
+                    {items.map((i)=>{
                         return(
-                            <li>
-                                {user.username}
+                            <li key={i.id}>
+
+                                <div className="flex-1/2">
+                                    <div>
+                                        {/* <img src={i.image} alt="product image" /> */}
+                                    </div>
+
+                                    <div>
+                                        <p>{i.id}</p>
+                                        <p>{i.title}</p>
+                                    </div>
+                                    <button onClick={()=>goToDetail(i.id)}>View Details</button>
+                                </div>
+
                             </li>
                         );
                     })}
@@ -24,12 +44,12 @@ export default function ProductsPage({users}){
 }
 
 export async function getStaticProps(){
-    const response = await fetch ('https://fakestoreapi.com/users');
-    const users = await response.json();
+    const response = await fetch ('https://fakestoreapi.com/products');
+    const items = await response.json();
 
     return{
         props:{
-            users,
+            items,
         }
     }
 }

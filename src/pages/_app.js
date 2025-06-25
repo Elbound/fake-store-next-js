@@ -5,8 +5,8 @@ export default function App({ Component, pageProps }) {
   return (
     <>
     <div>
-      <Link href="/home">Home</Link>
-      <Link href="/products">Products</Link>
+      <Link href="/">Home</Link>
+      <Link href="/contacts">Contacts</Link>
     </div>
     
     <Component {...pageProps} />
